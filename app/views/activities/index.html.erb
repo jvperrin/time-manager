@@ -1,0 +1,27 @@
+<h1>Listing Activities for User <%= @user.id %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activities.each do |activity| %>
+      <tr>
+        <td><%= activity.name %></td>
+        <td><%= activity.color %></td>
+        <td><%= link_to 'Show', user_activity_path(@user, activity) %></td>
+        <td><%= link_to 'Edit', edit_user_activity_path(@user, activity) %></td>
+        <td><%= link_to 'Destroy', user_activity_path(@user, activity), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Activity', new_user_activity_path(@user) %>

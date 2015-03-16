@@ -1,0 +1,20 @@
+<h1>Sign In</h1>
+
+<%= form_for(:session, url: create_session_path) do |f| %>
+
+  <%= hidden_field_tag :continue, @continue %>
+
+  <div class="field">
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email, tabindex: 1, required: true, value: @email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password, tabindex: 2, required: true, autofocus: @email.present? %>
+  </div>
+
+  <div class="submit">
+    <%= f.submit "Sign in", data: { disable_with: 'Signing in...' }, tabindex: 3 %>
+  </div>
+<% end %>

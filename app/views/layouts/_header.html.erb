@@ -1,0 +1,14 @@
+<header>
+  <div class="nav">
+    <ul>
+      <li class="home"><%= link_to "Home", root_path %></li>
+      <li class="about"><%= link_to "About", about_path %></li>
+
+      <% if signed_in? %>
+        <li class="signout"><%= link_to "Sign Out", destroy_session_path, method: :delete %></li>
+      <% else %>
+        <li class="signin"><%= link_to "Sign In", new_session_path(continue: request.path) %></li>
+      <% end %>
+    </ul>
+  </div>
+</header>

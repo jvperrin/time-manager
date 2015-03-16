@@ -10,8 +10,11 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false # Will not show full error reports
   config.action_controller.perform_caching = false
+
+  # Raise an error if any parameters are filtered by strong parameters
+  config.action_controller.action_on_unpermitted_parameters = :raise
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

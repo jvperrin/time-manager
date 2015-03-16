@@ -1,9 +1,34 @@
 Rails.application.routes.draw do
+
+  root 'dashboard#index'
+
+  get '/about', to: 'dashboard#about', as: :about
+
+  # Users
+  resources :users, except: :destroy do
+    resources :activities
+  end
+
+  # Sessions
+  get    '/signin',  to: 'sessions#new',     as: :new_session
+  post   '/signin',  to: 'sessions#create',  as: :create_session
+  delete '/signout', to: 'sessions#destroy', as: :destroy_session
+
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      get   '/user', to: 'users#show'
+      match '/user', to: 'users#update', via: [:put, :patch]
+
+      post '/signin', to: 'sessions#create'
+
+      resources :activities, except: [:new, :edit] do
+        resources :activity_times, except: [:new, :edit]
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,0 +1,7 @@
+<p>
+  <strong>Name:</strong>
+  <%= @activity.name %>
+</p>
+
+<%= link_to 'Edit', edit_user_activity_path(@user, @activity) %> |
+<%= link_to 'Back', user_activities_path(@user) %>

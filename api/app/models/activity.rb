@@ -11,7 +11,7 @@ class Activity < ActiveRecord::Base
 
   validates :name, :color, :user, presence: true
   validates :name,  uniqueness: { scope: :user }
-  validates :color, format: { with: /\A#[a-f\d]{3}([a-f\d]{3})?\Z/i }
+  validates :color, format: { with: /\A#[a-f\d]{6}\Z/i }
 
   before_validation :generate_color
 

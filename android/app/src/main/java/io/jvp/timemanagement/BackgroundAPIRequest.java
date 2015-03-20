@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BackgroundAPIRequest {
-    private static BackgroundAPIRequest mInstance = null;
     private static RequestQueue requestQueue = TimeManagement.requestQueue;
     private static Context context = TimeManagement.context;
 
@@ -82,7 +81,7 @@ public class BackgroundAPIRequest {
         ) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  headers = new HashMap<String, String>();
+                Map<String, String>  headers = new HashMap<>();
 
                 SharedPreferences settings = context.getSharedPreferences("session", Context.MODE_PRIVATE);
 
@@ -109,7 +108,7 @@ public class BackgroundAPIRequest {
     }
 
 
-    private static JsonArrayRequest objectRequest(final int method, String url, JSONArray jsonData,
+    private static JsonArrayRequest arrayRequest(final int method, String url, JSONArray jsonData,
                                                    final Handler successCallback, final Handler errorCallback) {
         JsonArrayRequest jsonArrReq = new JsonArrayRequest(method, url, jsonData,
             new Response.Listener<JSONArray>() {
@@ -140,7 +139,7 @@ public class BackgroundAPIRequest {
         ) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  headers = new HashMap<String, String>();
+                Map<String, String>  headers = new HashMap<>();
 
                 SharedPreferences settings = context.getSharedPreferences("session", Context.MODE_PRIVATE);
 

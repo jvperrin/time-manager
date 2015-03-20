@@ -19,7 +19,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.VolleyError;
@@ -42,20 +41,15 @@ public class LoginActivity extends Activity {
     private View mProgressView;
     private View mLoginFormView;
 
-    // Message to pass to the next activity
-    public final static String EXTRA_MESSAGE = "io.jvp.timemanagement.MESSAGE";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // If signed in, redirect to home
+        // If the user has signed in previously, redirect to home
         SharedPreferences settings = getSharedPreferences("session", MODE_PRIVATE);
 
         if (!settings.getString("apiKey", "").equals("")) {
-//            Toast.makeText(getApplicationContext(), "Redirecting...",
-//            Toast.LENGTH_SHORT).show();
             Intent mainIntent = new Intent(this, MainActivity.class);
             startActivity(mainIntent);
         }
@@ -131,7 +125,7 @@ public class LoginActivity extends Activity {
             // perform the user login attempt.
             showProgress(true);
 
-            final Intent intent = new Intent(this, DisplayMessageActivity.class);
+            final Intent mainIntent = new Intent(this, MainActivity.class);
 
             BackgroundAPIRequest.loginRequest(email, password,
                 new Handler() {
@@ -144,14 +138,12 @@ public class LoginActivity extends Activity {
                             SharedPreferences settings = getSharedPreferences("session", MODE_PRIVATE);
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("apiKey", apiKey);
-                            editor.commit();
-
-                            intent.putExtra(EXTRA_MESSAGE, apiKey);
+                            editor.apply();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        startActivity(intent);
+                        startActivity(mainIntent);
                     }
                 }, new Handler() {
                     @Override
@@ -159,10 +151,11 @@ public class LoginActivity extends Activity {
                         VolleyError error = (VolleyError) msg.obj;
 
                         NetworkResponse response = error.networkResponse;
-                        JSONObject json = null;
-                        if(response != null && response.data != null){
-                            switch(response.statusCode){
+                        JSONObject json;
+                        if(response != null && response.data != null) {
+                            switch(response.statusCode) {
                                 case 401:
+                                case 500:
                                     String jsonString = null;
                                     try {
                                         jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
@@ -172,11 +165,9 @@ public class LoginActivity extends Activity {
                                     try {
                                         json = new JSONObject(jsonString);
 
-                                        if (json != null) {
-                                            TextView errorMessageView = (TextView) findViewById(R.id.login_form_error);
-                                            errorMessageView.setText(json.getString("error"));
-                                            errorMessageView.setVisibility(View.VISIBLE);
-                                        }
+                                        TextView errorMessageView = (TextView) findViewById(R.id.login_form_error);
+                                        errorMessageView.setText(json.getString("error"));
+                                        errorMessageView.setVisibility(View.VISIBLE);
 
                                         showProgress(false);
                                     } catch (JSONException e) {

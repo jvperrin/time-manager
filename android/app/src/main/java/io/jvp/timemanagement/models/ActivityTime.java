@@ -8,10 +8,12 @@ public class ActivityTime {
     private int id;
     private float duration;
     private Date start;
+    private int activityId;
 
-    public ActivityTime(int id, float duration, String start) {
+    public ActivityTime(int id, float duration, String start, int activityId) {
         this.id = id;
         this.duration = duration;
+        this.activityId = activityId;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         try {
@@ -31,5 +33,9 @@ public class ActivityTime {
 
     public Date getStart() {
         return start;
+    }
+
+    public int getActivityId() {
+        return activityId;
     }
 }

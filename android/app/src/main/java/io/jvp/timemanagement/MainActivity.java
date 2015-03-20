@@ -1,16 +1,16 @@
 package io.jvp.timemanagement;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.TextView;
 
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
-    public final static String EXTRA_MESSAGE = "io.jvp.timemanagement.MESSAGE";
-
-    private TextView responseText;
+//    public final static String EXTRA_MESSAGE = "io.jvp.timemanagement.MESSAGE";
+//    private TextView responseText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,5 +41,12 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void logout(View view) {
+        SharedPreferences settings = getSharedPreferences("session", MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.remove("apiKey");
+        editor.apply();
     }
 }

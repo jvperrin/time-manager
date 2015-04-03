@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
       post '/signin', to: 'sessions#create'
 
+      post '/set-current-activity', to: 'activities#set_current'
+
       resources :activities, except: [:new, :edit] do
         resources :activity_times, except: [:new, :edit]
       end

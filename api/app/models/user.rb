@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :activities
 
+  belongs_to :current_activity, class_name: 'Activity'
+
   validates :email, presence: true
 
   before_create :generate_api_key

@@ -40,6 +40,24 @@ class Api::V1::ActivitiesController < Api::ApiController
     render json: { success: "The activity was deleted" }, status: :ok
   end
 
+  # POST /set-current-activity
+  def set_current
+    past_activity = @user.current_activity
+    if past_activity
+      past_activity_time = past_activity.activity_times.last
+      
+      if past_activity_time
+        duration = ((DateTime.now - past_activity_time.start.to_datetime) * 1.day).to_f
+        past_activity_time.update_attribute(:duration, duration)
+      end
+    end
+    
+    current_activity = Activity.find(params[:id])
+    @user.update_attribute(:current_activity_id, current_activity.id)
+    new_activity_time = current_activity.activity_times.create(start: DateTime.now)
+    render json: { success: "Changed to #{current_activity.name}" }, status: :ok
+  end
+
   private
     def set_activity
       @activity = @user.activities.find(params[:id])

@@ -9,5 +9,7 @@ class ActivityTime < ActiveRecord::Base
 
   belongs_to :activity
 
-  validates :start, :duration, :activity, presence: true
+  validates :start, :activity, presence: true
+
+  default_scope -> { order :id }
 end

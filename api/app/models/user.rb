@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  has_many :activities
+  has_many :activities, dependent: :destroy
 
   belongs_to :current_activity, class_name: 'Activity'
 

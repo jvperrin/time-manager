@@ -7,7 +7,7 @@ class Activity < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :activity_times
+  has_many :activity_times, dependent: :destroy
 
   validates :name, :color, :user, presence: true
   validates :name,  uniqueness: { scope: :user }

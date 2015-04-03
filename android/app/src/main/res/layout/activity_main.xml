@@ -1,13 +1,64 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/main_layout">
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:format="%s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/current_activity_name"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:textSize="34dp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="110dp"
+        android:text="Test value"/>
+
+    <Button
+        android:id="@+id/button_new_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_new_activity"
+        android:onClick="create_activity"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <EditText android:id="@+id/new_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:hint="@string/prompt_activity"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:layout_above="@id/button_new_activity" />
+
+    <com.larswerkman.holocolorpicker.ColorPicker
+        android:id="@+id/activity_color_picker"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/button_new_activity"/>
 
     <Button
         android:id="@+id/button_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_logout"
-        android:onClick="logout" />
-</LinearLayout>
+        android:onClick="logout"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

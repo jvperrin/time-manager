@@ -16,5 +16,6 @@
 !/api/log/.keep
 /api/tmp
 
-# Ignore ngrok executable
+# Ignore ngrok executable and video folder
 ngrok
+video

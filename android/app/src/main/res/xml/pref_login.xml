@@ -1,0 +1,31 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<TextView-->
+        <!--android:id="@+id/pref_login_current"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <!--<EditText-->
+        <!--android:id="@+id/pref_email"-->
+        <!--android:key="login_email"-->
+        <!--android:title="@string/pref_login_email"-->
+        <!--android:selectAllOnFocus="true"-->
+        <!--android:inputType="textEmailAddress"-->
+        <!--android:singleLine="true"-->
+        <!--android:maxLines="1" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/pref_password"-->
+        <!--android:key="login_password"-->
+        <!--android:title="@string/pref_login_password"-->
+        <!--android:selectAllOnFocus="true"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:singleLine="true"-->
+        <!--android:maxLines="1" />-->
+
+    <!--<Button android:id="@+id/pref_sign_in_button" style="?android:textAppearanceSmall"-->
+        <!--android:layout_width="match_parent" android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp" android:text="@string/action_sign_in"-->
+        <!--android:textStyle="bold" android:onClick="attemptLogin" />-->
+</PreferenceScreen>

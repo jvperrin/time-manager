@@ -4,11 +4,13 @@ public class User {
     private int id;
     private String email;
     private String apiKey;
+    private int currentActivity;
 
-    public User(int id, String email, String apiKey) {
+    public User(int id, String email, String apiKey, int currentActivity) {
         this.id = id;
         this.email = email;
         this.apiKey = apiKey;
+        this.currentActivity = currentActivity;
     }
 
     public int getId() {
@@ -21,5 +23,9 @@ public class User {
 
     public String getApiKey() {
         return apiKey;
+    }
+
+    public int getCurrentActivity() {
+        return currentActivity;
     }
 }

@@ -23,9 +23,12 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.jvp.timemanagement.models.Activity;
+
 public class BackgroundAPIRequest {
     private static RequestQueue requestQueue = TimeManagement.requestQueue;
     private static Context context = TimeManagement.context;
+    private static String baseUrl = "https://tm-app.jvp.io/api/v1";
 
     public static <T> void addToRequestQueue(Request<T> req) {
         req.setTag("VolleyRequest");
@@ -34,7 +37,7 @@ public class BackgroundAPIRequest {
 
     public static void loginRequest(String email, String password, final Handler successCallback,
                                     final Handler errorCallback) {
-        String url = "http://69f88ec1.ngrok.com/api/v1/signin";
+        String url = baseUrl + "/signin";
 
         JSONObject jsonLogin = new JSONObject();
         try {
@@ -44,10 +47,53 @@ public class BackgroundAPIRequest {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjReq = objectRequest(Request.Method.POST, url, jsonLogin, successCallback, errorCallback);
+        JsonObjectRequest loginReq = objectRequest(Request.Method.POST, url, jsonLogin, successCallback, errorCallback);
 
-        addToRequestQueue(jsonObjReq);
+        addToRequestQueue(loginReq);
     }
+
+    public static void activitiesRequest(final Handler successCallback, final Handler errorCallback) {
+        String url = baseUrl +  "/activities";
+
+        JsonArrayRequest activityReq = arrayRequest(Request.Method.GET, url, null, successCallback, errorCallback);
+
+        addToRequestQueue(activityReq);
+    }
+
+    public static void createActivityRequest(Activity activity, final Handler successCallback, final Handler errorCallback) {
+        String url = baseUrl + "/activities";
+
+        JSONObject activityJson = new JSONObject();
+        try {
+            JSONObject activityValues = new JSONObject();
+            activityValues.put("name", activity.getName());
+            activityValues.put("color", activity.getColorString());
+
+            activityJson.put("activity", activityValues);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest activityReq = objectRequest(Request.Method.POST, url, activityJson, successCallback, errorCallback);
+
+        addToRequestQueue(activityReq);
+    }
+
+    public static void setCurrentActivityRequest(Activity activity, final Handler successCallback, final Handler errorCallback) {
+        String url = baseUrl + "/set-current-activity";
+
+        JSONObject currentActivityJson = new JSONObject();
+        try {
+            currentActivityJson.put("id", activity.getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest activityReq = objectRequest(Request.Method.POST, url, currentActivityJson, successCallback, errorCallback);
+
+        addToRequestQueue(activityReq);
+    }
+
 
 
     private static JsonObjectRequest objectRequest(final int method, String url, JSONObject jsonData,
@@ -109,7 +155,7 @@ public class BackgroundAPIRequest {
 
 
     private static JsonArrayRequest arrayRequest(final int method, String url, JSONArray jsonData,
-                                                   final Handler successCallback, final Handler errorCallback) {
+                                                 final Handler successCallback, final Handler errorCallback) {
         JsonArrayRequest jsonArrReq = new JsonArrayRequest(method, url, jsonData,
             new Response.Listener<JSONArray>() {
 

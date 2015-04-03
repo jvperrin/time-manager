@@ -22,6 +22,4 @@ test:
 
 production:
   <<: *default
-  database: time_management_production
-  username: time_management
-  password: <%= ENV['TIME-MANAGEMENT-DATABASE-PASSWORD'] %>
+  url: <%= ENV["DATABASE_URL"] %>
